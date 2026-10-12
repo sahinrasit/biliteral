@@ -1,0 +1,26 @@
+.DS_Store
+xcuserdata/
+DerivedData/
+build/
+*.xcresult
+.build/
+.swiftpm/
+Packages/BiliteralCore/.build/
+Config/Secrets.xcconfig
+*.p8
+*.mobileprovision
+*.cer
+*.p12
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output/
+fastlane/asc_api_key.json
+fastlane/screenshots/screenshots.html
+.env
+.env.*
+vendor/bundle/
+.bundle/
+fastlane/screenshots/
+.secrets/
+# Needs `gh auth refresh -s workflow` before it can be pushed.
+.github/workflows/

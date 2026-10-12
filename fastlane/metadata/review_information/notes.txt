@@ -1,0 +1,11 @@
+Biliteral is a bilingual reader. Translation is performed on-device by Apple's Translation framework; no server and no account are used.
+
+How to test:
+1. Finish the three onboarding pages. The bundled public-domain sample book (Alice's Adventures in Wonderland, Project Gutenberg) opens, set to English -> Spanish (or the device language).
+2. iOS asks once to download the language pair; allow it. Read in two-page mode (iPad, or iPhone in landscape) or single column (iPhone portrait).
+3. Tap a sentence to highlight its translation, then tap a word inside the highlighted sentence for its meaning. Choose "I don't know this word" to create a flashcard (Flashcards tab).
+
+Free tier: one imported book, its first three chapters and 20 reviews a day; the sample book is always free. The paywall appears when importing a second book, opening chapter 4 of an imported book, or from Settings > Unlock Biliteral Pro.
+In-app purchases: Lifetime (non-consumable) and Monthly (auto-renewable), StoreKit 2 via RevenueCat. Sandbox works without an account in the app.
+DRM-protected books cannot be opened by design.
+Contact: mrrasitsahin@icloud.com

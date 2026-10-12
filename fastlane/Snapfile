@@ -1,0 +1,12 @@
+project("./Biliteral.xcodeproj")
+scheme("Biliteral")
+devices([
+  "Biliteral iPhone 17 Pro Max",
+  "Biliteral iPad Pro 13"
+])
+languages(["en-US", "de-DE", "fr-FR", "es-ES", "it", "nl-NL", "tr"])
+only_testing(["BiliteralUITests/ScreenshotTests"])
+clear_previous_screenshots(true)
+override_status_bar(true)
+concurrent_simulators(false)
+stop_after_first_error(true)

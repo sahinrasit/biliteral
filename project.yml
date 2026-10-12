@@ -1,0 +1,84 @@
+name: Biliteral
+options:
+  bundleIdPrefix: com.sahinrasit
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+configFiles:
+  Debug: Config/Shared.xcconfig
+  Release: Config/Shared.xcconfig
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: CJ438MY6FU
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_EMIT_LOC_STRINGS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    STRING_CATALOG_GENERATE_SYMBOLS: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+packages:
+  BiliteralCore:
+    path: Packages/BiliteralCore
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios-spm.git
+    from: "5.0.0"
+
+targets:
+  Biliteral:
+    type: application
+    platform: iOS
+    sources:
+      - path: Biliteral
+    dependencies:
+      - package: BiliteralCore
+      - package: RevenueCat
+        product: RevenueCat
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sahinrasit.biliteral
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_FILE: Biliteral/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+        CODE_SIGN_ENTITLEMENTS: ""
+    scheme:
+      testTargets:
+        - BiliteralTests
+        - BiliteralUITests
+      storeKitConfiguration: Biliteral/Resources/Biliteral.storekit
+      gatherCoverageData: false
+
+  BiliteralTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [BiliteralTests]
+    dependencies:
+      - target: Biliteral
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sahinrasit.biliteral.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  BiliteralUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [BiliteralUITests]
+    dependencies:
+      - target: Biliteral
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sahinrasit.biliteral.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Biliteral

@@ -1,0 +1,38 @@
+Biliteral turns any book, article or pasted text into a bilingual reader. The original stays on the left page, the translation appears on the right, sentence by sentence, aligned and scrolling together. Translation runs entirely on your device, so it works on a plane, in the metro, anywhere.
+
+YOUR CONTENT, NOT A LIBRARY
+• Import EPUB and PDF files, web articles or any pasted text
+• No curated library, no "premium stories": read what you actually want to read
+• Books stay on your device and in your iCloud backup
+
+READ IN TWO LANGUAGES
+• Two-page layout: original and translation side by side
+• Tap a sentence to highlight its match on the other page
+• Single-column mode on smaller screens: translation under each paragraph or on tap
+• Adjustable font, text size and themes (Paper, Night)
+
+LEARN WHILE YOU READ
+• Tap any word for its meaning and the built-in dictionary
+• Save unknown words as spaced-repetition flashcards with one tap
+• Daily review queue with sentence context from your own book
+• Listen to any passage with natural text-to-speech
+• Ask on-device AI to explain a sentence (Pro, on supported devices)
+
+OFFLINE AND PRIVATE
+• On-device translation: no text ever leaves your device
+• Download a language pair once, read offline forever
+• No account, no tracking, no ads
+
+SUPPORTED LANGUAGES
+English, Spanish, French, German, Italian, Dutch, Portuguese, Turkish, Polish, Russian, Ukrainian, Arabic, Chinese, Japanese, Korean, Hindi, Indonesian, Thai, Vietnamese and more, in any direction supported by your device's translation models.
+
+ONE PURCHASE
+Try it free: a public-domain classic is included, and you can read one book of your own up to chapter 3. Biliteral Lifetime unlocks everything with a single payment. A monthly plan is available if you prefer; it renews automatically unless cancelled at least 24 hours before the end of the period, and you manage it in your App Store account settings. No trial traps.
+
+Designed first for foldable and large screens, Biliteral works fully on every iPhone and iPad running iOS 18 or later.
+
+Notes: Books protected by DRM (for example purchased from major ebook stores) cannot be opened. Translation quality depends on the system translation models for each language pair.
+
+Support: mrrasitsahin@icloud.com
+Privacy: https://sahinrasit.github.io/biliteral/privacy
+Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/

@@ -1,0 +1,70 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      { "locale" : "en_US", "policyText" : "", "policyURL" : "" }
+    ]
+  },
+  "identifier" : "4C1D2E3F",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "14.99",
+      "familyShareable" : true,
+      "internalID" : "6740000001",
+      "localizations" : [
+        {
+          "description" : "Unlimited books, side-by-side translation and flashcards. Pay once.",
+          "displayName" : "Biliteral Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.sahinrasit.biliteral.lifetime",
+      "referenceName" : "Biliteral Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6740000000",
+    "_developerTeamID" : "CJ438MY6FU",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21500001",
+      "localizations" : [],
+      "name" : "Biliteral Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6740000002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited books, side-by-side translation and flashcards.",
+              "displayName" : "Biliteral Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.sahinrasit.biliteral.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Biliteral Monthly",
+          "subscriptionGroupID" : "21500001",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : []
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
