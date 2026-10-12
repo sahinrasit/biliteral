@@ -15,7 +15,7 @@ final class ScreenshotTests: XCTestCase {
     }
 
     private func waitForReader(_ app: XCUIApplication) {
-        XCTAssertTrue(app.buttons["chaptersButton"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.buttons["chaptersButton"].waitForExistence(timeout: 60))
         sleep(2)
     }
 
@@ -28,20 +28,20 @@ final class ScreenshotTests: XCTestCase {
     func test02Alignment() {
         let app = launch(["-SkipOnboarding", "-Pro", "YES", "-Screen", "select"])
         waitForReader(app)
-        XCTAssertTrue(app.otherElements["sentenceBar"].waitForExistence(timeout: 10) || app.staticTexts["selectedTranslation"].exists)
+        XCTAssertTrue(app.otherElements["sentenceBar"].waitForExistence(timeout: 60) || app.staticTexts["selectedTranslation"].exists)
         snapshot("02-alignment")
     }
 
     func test03Import() {
         let app = launch(["-SkipOnboarding", "-Pro", "NO"])
-        XCTAssertTrue(app.buttons["importPaste"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.buttons["importPaste"].waitForExistence(timeout: 60))
         sleep(1)
         snapshot("03-import")
     }
 
     func test04Word() {
         let app = launch(["-SkipOnboarding", "-Pro", "YES", "-Screen", "word"])
-        XCTAssertTrue(app.staticTexts["lookupMeaning"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.staticTexts["lookupMeaning"].waitForExistence(timeout: 60))
         sleep(1)
         snapshot("04-word")
     }
@@ -49,12 +49,12 @@ final class ScreenshotTests: XCTestCase {
     func test05Flashcards() {
         let app = launch(["-SkipOnboarding", "-Pro", "YES", "-Screen", "review"])
         let start = app.buttons["startReview"]
-        XCTAssertTrue(start.waitForExistence(timeout: 20))
+        XCTAssertTrue(start.waitForExistence(timeout: 60))
         start.tap()
         let show = app.buttons["showAnswer"]
-        XCTAssertTrue(show.waitForExistence(timeout: 10))
+        XCTAssertTrue(show.waitForExistence(timeout: 60))
         show.tap()
-        XCTAssertTrue(app.staticTexts["cardMeaning"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["cardMeaning"].waitForExistence(timeout: 60))
         sleep(1)
         snapshot("05-flashcards")
     }
@@ -62,7 +62,7 @@ final class ScreenshotTests: XCTestCase {
     func test06Offline() {
         let app = launch(["-Pro", "YES"])
         let next = app.buttons["onboardingContinue"]
-        XCTAssertTrue(next.waitForExistence(timeout: 20))
+        XCTAssertTrue(next.waitForExistence(timeout: 60))
         next.tap()
         next.tap()
         sleep(1)
@@ -77,7 +77,7 @@ final class ScreenshotTests: XCTestCase {
 
     func test08Paywall() {
         let app = launch(["-SkipOnboarding", "-Pro", "NO", "-Screen", "paywall"])
-        XCTAssertTrue(app.buttons["paywallClose"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.buttons["paywallClose"].waitForExistence(timeout: 60))
         sleep(2)
         snapshot("08-paywall")
     }

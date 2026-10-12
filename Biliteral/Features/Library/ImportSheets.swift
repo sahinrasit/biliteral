@@ -4,6 +4,8 @@ import SwiftUI
 import Translation
 
 struct ArticleSheet: View {
+    /// Receives the import to run once the sheet is closed.
+    var onSubmit: (@escaping () -> Void) -> Void
     @Environment(ImportController.self) private var importer
     @Environment(\.dismiss) private var dismiss
     @State private var address = ""
@@ -45,12 +47,15 @@ struct ArticleSheet: View {
     }
 
     private func load() {
-        importer.importArticle(address)
+        let address = address
+        let importer = importer
+        onSubmit { importer.importArticle(address) }
         dismiss()
     }
 }
 
 struct PasteSheet: View {
+    var onSubmit: (@escaping () -> Void) -> Void
     @Environment(ImportController.self) private var importer
     @Environment(\.dismiss) private var dismiss
     @State private var title = ""
@@ -82,7 +87,10 @@ struct PasteSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         let name = title.trimmingCharacters(in: .whitespaces)
-                        importer.importText(text, title: name.isEmpty ? String(localized: "Pasted Text") : name)
+                        let text = text
+                        let title = name.isEmpty ? String(localized: "Pasted Text") : name
+                        let importer = importer
+                        onSubmit { importer.importText(text, title: title) }
                         dismiss()
                     }
                     .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)

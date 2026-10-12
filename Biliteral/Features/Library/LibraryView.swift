@@ -14,6 +14,8 @@ struct LibraryView: View {
     @State private var showArticle = false
     @State private var showPaste = false
     @State private var bookToDelete: Book?
+    /// Import started from a sheet; runs after the sheet has gone so the language sheet can appear.
+    @State private var afterSheet: (() -> Void)?
 
     private var sortedBooks: [Book] {
         books.sorted { ($0.lastOpenedAt ?? $0.addedAt) > ($1.lastOpenedAt ?? $1.addedAt) }
@@ -74,8 +76,8 @@ struct LibraryView: View {
         .fileImporter(isPresented: $showFilePicker, allowedContentTypes: BookImporter.fileTypes) { result in
             if case .success(let url) = result { importer.importFile(url) }
         }
-        .sheet(isPresented: $showArticle) { ArticleSheet() }
-        .sheet(isPresented: $showPaste) { PasteSheet() }
+        .sheet(isPresented: $showArticle, onDismiss: runAfterSheet) { ArticleSheet { afterSheet = $0 } }
+        .sheet(isPresented: $showPaste, onDismiss: runAfterSheet) { PasteSheet { afterSheet = $0 } }
         .confirmationDialog("Delete this book?", isPresented: .init(get: { bookToDelete != nil }, set: { if !$0 { bookToDelete = nil } }),
                             titleVisibility: .visible) {
             Button("Delete", role: .destructive) {
@@ -86,6 +88,11 @@ struct LibraryView: View {
         } message: {
             Text("The book and its translations are removed from this device. Your flashcards stay.")
         }
+    }
+
+    private func runAfterSheet() {
+        afterSheet?()
+        afterSheet = nil
     }
 
     /// Free tier: one imported book.
