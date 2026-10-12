@@ -11,12 +11,12 @@ reuse of ASC API key `9ZUJU3XZ8V` (copied to `fastlane/`, git-ignored), public r
 | 1 | Repo + skeleton | ✅ https://github.com/sahinrasit/biliteral (public), Pages: https://sahinrasit.github.io/biliteral/privacy (200) |
 | 2 | Core (EPUB/PDF/URL/paste, sentences, translation, cache) | ✅ 27 core tests (`swift test --package-path Packages/BiliteralCore`) |
 | 3 | Two-page + single-column reader | ✅ verified on iPhone 17 Pro Max and iPad Pro 13 simulators |
-| 4 | RevenueCat + paywall | ⏳ paywall + StoreKit 2 done; RevenueCat keys from the owner pending |
+| 4 | RevenueCat + paywall | ✅ project `projd99429d7`, app `appf9d467733a`, entitlement `pro`, current offering `default` ($rc_lifetime, $rc_monthly) |
 | 5 | Onboarding → sample book → paywall | ✅ 3 pages, opens the sample book; free tier 1 book / 3 chapters / 20 reviews a day |
 | 6 | Localization | ✅ 140 keys × de, fr, es, it, nl, tr, 0 missing (`scripts/build_xcstrings.py build/dd`) |
 | 7 | Screenshots + metadata | ⏳ metadata for 8 locales within limits; `fastlane screenshots` running, then `swift scripts/frame_screenshots.swift fastlane/screenshots build/framed` |
-| 8 | TestFlight | ⛔ needs the App Store Connect record (see open items) |
-| 9 | ASC: IAPs, prices, privacy label, review info | — |
+| 8 | TestFlight | ✅ build 2 (with RevenueCat key) VALID, attached to version 1.0 |
+| 9 | ASC: IAPs, prices, privacy label, review info | ✅ app 6822089873; Lifetime 6822090362 + Monthly 6822090445 READY_TO_SUBMIT; privacy label published; age 4+; review contact + notes |
 | 10 | Submit for review | ⏸ owner decision (2026-10-13): prepare everything, do NOT submit |
 | 11 | Handle rejection | — |
 | 12 | 7-day post-launch monitoring | — |
@@ -40,25 +40,19 @@ reuse of ASC API key `9ZUJU3XZ8V` (copied to `fastlane/`, git-ignored), public r
 
 ## Open items for the owner
 
-- **App Store Connect record (blocker).** The API refuses `POST /v1/apps` (403), so it must be created on the website:
-  My Apps → + → New App · iOS · Name `Biliteral: Bilingual Reader` · English (U.S.) · Bundle ID
-  `com.sahinrasit.biliteral` (registered, id K33TN9L369) · SKU `biliteral-ios-2026` · Full Access.
-  Also on the website: App Privacy → "Purchases" (not linked, no tracking, app functionality), publish.
-  Claude cannot sign in (no password entry); sign in to App Store Connect and RevenueCat in Chrome and Claude does the rest.
-
-- RevenueCat: create project "Biliteral", add the App Store app (`com.sahinrasit.biliteral`) with the
-  In-App Purchase key (the team key in `~/TwoSides/.secrets/SubscriptionKey_U3ALV752ML.p8` works),
-  then save the public `appl_` key to `.secrets/revenuecat_public.txt` and a v2 secret key to
-  `.secrets/revenuecat_v2.txt`. Until then the app uses StoreKit 2 directly.
 - `gh auth refresh -s workflow` so `.github/workflows/ios.yml` can be pushed.
 
-## Next steps once the record exists (in order)
+## How the store setup was done (re-runnable)
 
 1. `ruby scripts/asc_setup.rb` (system Ruby) — app free, availability, Lifetime + Monthly IAPs with prices.
 2. `ruby scripts/asc_listing.rb` — age rating 4+, review contact and notes.
 3. `PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec fastlane beta` — archive and upload to TestFlight.
 4. `bundle exec fastlane metadata` (with framed screenshots copied to `fastlane/screenshots/<locale>`, en-GB = en-US copy).
-5. RevenueCat project + offering; then `bundle exec fastlane release`.
+5. `python3 scripts/revenuecat_setup.py` — RevenueCat products, entitlement, offering.
+6. `ruby scripts/asc_review_screenshots.rb <paywall.png>`, `ruby scripts/asc_attach_build.rb`.
+7. Screenshots: `bundle exec fastlane screenshots`, `swift scripts/frame_screenshots.swift fastlane/screenshots build/framed`,
+   copy en-US to en-GB, `bundle exec fastlane upload_screenshots`.
+8. Submission (NOT done, owner decides): `bundle exec fastlane release`.
 
 Tooling notes: fastlane 2.241 lives in `vendor/bundle` (Homebrew Ruby 3.3); `scripts/asc*.rb` need system Ruby
 (`/usr/bin/ruby`), because Homebrew Ruby's OpenSSL fails Apple's CRL check.
@@ -69,3 +63,5 @@ Tooling notes: fastlane 2.241 lives in `vendor/bundle` (Homebrew Ruby 3.3); `scr
 - 2026-10-12: repo pushed, Pages live, bundle ID registered. App record creation blocked (website only).
 - 2026-10-13: sentence and word taps verified by hand in the simulator; UI test failures were timeouts on an
   overloaded host (load ~800), timeouts raised to 60 s. Screenshot run started.
+- 2026-10-13: owner signed in to Chrome; Claude created the ASC record, privacy label and RevenueCat project.
+  IAPs, prices, metadata (8 locales), builds 1–2 uploaded; build 2 attached. Owner: do NOT submit for review.
