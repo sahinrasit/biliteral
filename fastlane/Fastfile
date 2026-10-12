@@ -41,12 +41,17 @@ platform :ios do
     capture_screenshots
   end
 
-  desc "Upload metadata (and screenshots, if present) without a binary"
+  desc "Upload texts, URLs, categories and review information (no screenshots, no binary)"
   lane :metadata do
-    deliver(api_key: asc_key, app_identifier: APP_ID, skip_binary_upload: true,
-            skip_screenshots: !Dir.exist?(File.expand_path("screenshots/en-US", __dir__)),
-            overwrite_screenshots: true, force: true, run_precheck_before_submit: false,
-            precheck_include_in_app_purchases: false)
+    deliver(api_key: asc_key, app_identifier: APP_ID, skip_binary_upload: true, skip_screenshots: true,
+            force: true, run_precheck_before_submit: false, precheck_include_in_app_purchases: false)
+  end
+
+  desc "Upload the framed screenshots from build/framed (see scripts/frame_screenshots.swift)"
+  lane :upload_screenshots do
+    deliver(api_key: asc_key, app_identifier: APP_ID, skip_binary_upload: true, skip_metadata: true,
+            screenshots_path: File.expand_path("../build/framed", __dir__), overwrite_screenshots: true,
+            force: true, run_precheck_before_submit: false, precheck_include_in_app_purchases: false)
   end
 
   desc "Build and upload to TestFlight"

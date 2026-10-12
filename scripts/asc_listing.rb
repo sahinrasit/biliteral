@@ -34,10 +34,10 @@ version = editable("/v1/apps/#{APP_ID}/appStoreVersions?filter%5Bplatform%5D=IOS
 contact = JSON.parse(File.read(File.join(ROOT, ".secrets/review_contact.json")))
 notes = File.read(File.join(ROOT, "fastlane/metadata/review_information/notes.txt")).strip
 attrs = contact.merge("demoAccountRequired" => false, "notes" => notes)
-begin
-  detail = ASC.get("/v1/appStoreVersions/#{version['id']}/appStoreReviewDetail")["data"]
+detail = (ASC.get("/v1/appStoreVersions/#{version['id']}/appStoreReviewDetail")["data"] rescue nil)
+if detail
   ASC.patch("/v1/appStoreReviewDetails/#{detail['id']}", data: { type: "appStoreReviewDetails", id: detail["id"], attributes: attrs })
-rescue RuntimeError
+else
   ASC.post("/v1/appStoreReviewDetails", data: {
     type: "appStoreReviewDetails", attributes: attrs,
     relationships: { appStoreVersion: { data: { type: "appStoreVersions", id: version["id"] } } }

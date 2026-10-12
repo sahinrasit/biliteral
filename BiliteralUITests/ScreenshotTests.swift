@@ -1,6 +1,7 @@
 import XCTest
 
 /// Captures the App Store screenshots listed in the launch plan (§12). Run with `fastlane screenshots`.
+@MainActor
 final class ScreenshotTests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false

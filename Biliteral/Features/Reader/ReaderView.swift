@@ -394,6 +394,7 @@ private struct SentenceBar: View {
         .background(.regularMaterial, in: .rect(cornerRadius: 18))
         .shadow(color: .black.opacity(0.08), radius: 10, y: 2)
         .frame(maxWidth: 700)
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("sentenceBar")
     }
 }

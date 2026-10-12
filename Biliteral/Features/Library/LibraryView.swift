@@ -124,6 +124,7 @@ struct ImportOptionsCard: View {
         }
         .padding(18)
         .background(Color.accentColor.opacity(0.08), in: .rect(cornerRadius: 20))
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("importOptions")
     }
 
