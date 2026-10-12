@@ -45,15 +45,7 @@ App Store screenshots for every locale
 [bundle exec] fastlane ios metadata
 ```
 
-Upload texts, URLs, categories and review information (no screenshots, no binary)
-
-### ios upload_screenshots
-
-```sh
-[bundle exec] fastlane ios upload_screenshots
-```
-
-Upload the framed screenshots from build/framed (see scripts/frame_screenshots.swift)
+Upload metadata (and screenshots, if present) without a binary
 
 ### ios beta
 

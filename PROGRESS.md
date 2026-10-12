@@ -17,7 +17,7 @@ reuse of ASC API key `9ZUJU3XZ8V` (copied to `fastlane/`, git-ignored), public r
 | 7 | Screenshots + metadata | ⏳ metadata for 8 locales within limits; `fastlane screenshots` running, then `swift scripts/frame_screenshots.swift fastlane/screenshots build/framed` |
 | 8 | TestFlight | ⛔ needs the App Store Connect record (see open items) |
 | 9 | ASC: IAPs, prices, privacy label, review info | — |
-| 10 | Submit for review | — |
+| 10 | Submit for review | ⏸ owner decision (2026-10-13): prepare everything, do NOT submit |
 | 11 | Handle rejection | — |
 | 12 | 7-day post-launch monitoring | — |
 

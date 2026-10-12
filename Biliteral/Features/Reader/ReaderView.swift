@@ -36,8 +36,9 @@ struct ReaderView: View {
     @State private var showSettings = false
     @State private var showPaywall = false
     @State private var explanation: Explanation?
-    /// Row to bring into view once the reader has laid out (demo selection).
-    @State private var scrollRequest: Int?
+    /// Row kept in view: the chapter header after a chapter change, the spoken row, or the demo selection.
+    @State private var scrollPosition: Int?
+    private static let headerID = -1
 
     private var style: ReaderStyle {
         ReaderStyle(font: ReaderFont(rawValue: fontRaw) ?? .serif, size: textSize, theme: ReaderTheme(rawValue: themeRaw) ?? .system)
@@ -49,42 +50,36 @@ struct ReaderView: View {
     var body: some View {
         GeometryReader { geometry in
             let twoPage = sideBySide && !forceSingleColumn && geometry.size.width >= 600
-            ScrollViewReader { proxy in
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 0) {
-                        header(twoPage: twoPage)
-                            .id("top")
-                        ForEach(rows) { row in
-                            ReaderRowView(row: row, content: translator.content, twoPage: twoPage, display: display,
-                                          selected: selected, speaking: narrator.speakingIndex, style: style)
-                                .id(row.id)
-                        }
-                        footer
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 0) {
+                    header(twoPage: twoPage)
+                        .id(Self.headerID)
+                    ForEach(rows) { row in
+                        ReaderRowView(row: row, content: translator.content, twoPage: twoPage, display: display,
+                                      selected: selected, speaking: narrator.speakingIndex, style: style)
+                            .id(row.id)
                     }
-                    .padding(.horizontal, twoPage ? 36 : 22)
-                    .padding(.bottom, 120)
-                    .frame(maxWidth: twoPage ? 1180 : 700)
-                    .frame(maxWidth: .infinity)
-                    .background(alignment: .top) {
-                        if twoPage {
-                            Rectangle()
-                                .fill(style.theme.secondaryText.opacity(0.18))
-                                .frame(width: 1)
-                                .frame(maxHeight: .infinity)
-                        }
+                    footer
+                }
+                .scrollTargetLayout()
+                .padding(.horizontal, twoPage ? 36 : 22)
+                .padding(.bottom, 120)
+                .frame(maxWidth: twoPage ? 1180 : 700)
+                .frame(maxWidth: .infinity)
+                .background(alignment: .top) {
+                    if twoPage {
+                        Rectangle()
+                            .fill(style.theme.secondaryText.opacity(0.18))
+                            .frame(width: 1)
+                            .frame(maxHeight: .infinity)
                     }
                 }
-                .scrollIndicators(.automatic)
-                .onChange(of: chapterIndex) { proxy.scrollTo("top", anchor: .top) }
-                .task(id: scrollRequest) {
-                    guard let scrollRequest else { return }
-                    try? await Task.sleep(for: .milliseconds(300))
-                    proxy.scrollTo(scrollRequest, anchor: .center)
-                }
-                .onChange(of: narrator.speakingIndex) { _, index in
-                    guard let index, let row = rows.last(where: { $0.sentences.lowerBound <= index }) else { return }
-                    withAnimation { proxy.scrollTo(row.id, anchor: .center) }
-                }
+            }
+            .scrollPosition(id: $scrollPosition, anchor: .center)
+            .scrollIndicators(.automatic)
+            .onChange(of: narrator.speakingIndex) { _, index in
+                guard let index, let row = rows.last(where: { $0.sentences.lowerBound <= index }) else { return }
+                withAnimation { scrollPosition = row.id }
             }
         }
         .background(style.theme.background.ignoresSafeArea())
@@ -264,7 +259,7 @@ struct ReaderView: View {
         reloadChapter()
         guard demo, translator.content.sentences.indices.contains(DemoContent.selectedSentence) else { return }
         if demoScreen == "select" || demoScreen == "word" {
-            scrollRequest = rows.last { $0.sentences.lowerBound <= DemoContent.selectedSentence }?.id
+            scrollPosition = rows.last { $0.sentences.lowerBound <= DemoContent.selectedSentence }?.id
         }
         switch demoScreen {
         case "select":
@@ -299,6 +294,7 @@ struct ReaderView: View {
         book.currentChapter = index
         book.lastOpenedAt = .now
         reloadChapter()
+        scrollPosition = Self.headerID
     }
 
     private func handle(_ url: URL) {
