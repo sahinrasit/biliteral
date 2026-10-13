@@ -14,10 +14,10 @@ reuse of ASC API key `9ZUJU3XZ8V` (copied to `fastlane/`, git-ignored), public r
 | 4 | RevenueCat + paywall | ✅ project `projd99429d7`, app `appf9d467733a`, entitlement `pro`, current offering `default` ($rc_lifetime, $rc_monthly) |
 | 5 | Onboarding → sample book → paywall | ✅ 3 pages, opens the sample book; free tier 1 book / 3 chapters / 20 reviews a day |
 | 6 | Localization | ✅ 140 keys × de, fr, es, it, nl, tr, 0 missing (`scripts/build_xcstrings.py build/dd`) |
-| 7 | Screenshots + metadata | ⏳ metadata for 8 locales within limits; `fastlane screenshots` running, then `swift scripts/frame_screenshots.swift fastlane/screenshots build/framed` |
+| 7 | Screenshots + metadata | ✅ 8 locales: texts + 8 iPhone 6.9" + 8 iPad 13" framed screenshots each, all COMPLETE in ASC |
 | 8 | TestFlight | ✅ build 2 (with RevenueCat key) VALID, attached to version 1.0 |
 | 9 | ASC: IAPs, prices, privacy label, review info | ✅ app 6822089873; Lifetime 6822090362 + Monthly 6822090445 READY_TO_SUBMIT; privacy label published; age 4+; review contact + notes |
-| 10 | Submit for review | ⏸ owner decision (2026-10-13): prepare everything, do NOT submit |
+| 10 | Submit for review | ⏸ READY: version 1.0 in Prepare for Submission, build 2 attached, "Add for Review" enabled, no warnings. Not submitted (owner decision 2026-10-13) |
 | 11 | Handle rejection | — |
 | 12 | 7-day post-launch monitoring | — |
 
@@ -65,3 +65,7 @@ Tooling notes: fastlane 2.241 lives in `vendor/bundle` (Homebrew Ruby 3.3); `scr
   overloaded host (load ~800), timeouts raised to 60 s. Screenshot run started.
 - 2026-10-13: owner signed in to Chrome; Claude created the ASC record, privacy label and RevenueCat project.
   IAPs, prices, metadata (8 locales), builds 1–2 uploaded; build 2 attached. Owner: do NOT submit for review.
+- 2026-10-13: 112 screenshots captured, paywall reshot with local prices (₺/€/$), framed, uploaded (en-GB = en-US).
+  IAP review screenshots uploaded; both IAPs READY_TO_SUBMIT. Content rights: uses third-party content (has rights).
+  Repo has two changes after build 2 (scrollPosition in reader, language-based sample prices); neither affects
+  real users, so build 2 stays attached.

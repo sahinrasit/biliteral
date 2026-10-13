@@ -18,7 +18,18 @@ struct PaywallOption: Identifiable, Equatable {
 
     /// Launch prices from the pricing plan, for UI tests and screenshots where StoreKit has no products.
     static func samples(for locale: Locale) -> [PaywallOption] {
-        let (currency, lifetime, monthly): (String, Decimal, Decimal) = switch locale.region?.identifier {
+        // Screenshots set only the language, so fall back to the language's main market.
+        let languageMarket: String = switch locale.language.languageCode?.identifier {
+        case "tr": "TR"
+        case "de": "DE"
+        case "fr": "FR"
+        case "es": "ES"
+        case "it": "IT"
+        case "nl": "NL"
+        default: "US"
+        }
+        let market = locale.region?.identifier ?? languageMarket
+        let (currency, lifetime, monthly): (String, Decimal, Decimal) = switch market {
         case "TR": ("TRY", 399.99, 89.99)
         case "GB": ("GBP", 12.99, 2.99)
         case "DE", "FR", "ES", "IT", "NL", "AT", "BE", "IE", "PT", "FI": ("EUR", 14.99, 2.99)
